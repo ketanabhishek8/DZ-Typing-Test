@@ -391,7 +391,8 @@ h2.result-title.win{ color: var(--color-accent-2); }
     "encrypted","database","predictive","anomaly","skyline","midnight",
     "sentinel","protocol","quantum","dataset","cluster","pipeline",
     "regression","classifier","mainframe","bytecode","phantom","vigilante",
-    "grapple","shadow","insight","matrix","gotham","villain","rooftop","downtown"
+    "grapple","shadow","insight","matrix","gotham","villain","rooftop","downtown",
+    "supervised","oscorp","punisher","zendaya","crossspecies"
   ];
 
   var ROUNDS = 5, PASS_NEEDED = 3;
@@ -439,12 +440,14 @@ h2.result-title.win{ color: var(--color-accent-2); }
       var j = Math.floor(Math.random() * (i + 1));
       var t = pool[i]; pool[i] = pool[j]; pool[j] = t;
     }
+    // bias toward the longer, harder words in the pool
+    pool.sort(function(a, b){ return b.length - a.length; });
     return pool.slice(0, ROUNDS);
   }
 
   function calcDuration(word){
-    var ms = 1150 + word.length * 170;
-    return Math.max(1800, Math.min(3400, ms));
+    var ms = 910 + word.length * 130;
+    return Math.max(1500, Math.min(2600, ms));
   }
 
   function renderDots(container, upto){
