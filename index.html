@@ -434,15 +434,8 @@ h2.result-title.win{ color: var(--color-accent-2); }
     el.classList.add("enter");
   }
 
-  function pickWords(){
-    var pool = WORD_POOL.slice();
-    for (var i = pool.length - 1; i > 0; i--){
-      var j = Math.floor(Math.random() * (i + 1));
-      var t = pool[i]; pool[i] = pool[j]; pool[j] = t;
-    }
-    // bias toward the longer, harder words in the pool
-    pool.sort(function(a, b){ return b.length - a.length; });
-    return pool.slice(0, ROUNDS);
+  function pickWord(){
+    return WORD_POOL[Math.floor(Math.random() * WORD_POOL.length)];
   }
 
   function calcDuration(word){
@@ -472,7 +465,7 @@ h2.result-title.win{ color: var(--color-accent-2); }
   function startRound(i){
     roundIndex = i;
     roundActive = true;
-    var word = words[i];
+    var word = words[i] = pickWord();
     roundLabel.textContent = "Round " + (i + 1) + " of " + ROUNDS;
     renderDots(dotsEl, i);
     renderWord(word, "");
@@ -585,7 +578,7 @@ h2.result-title.win{ color: var(--color-accent-2); }
   });
 
   startBtn.addEventListener("click", function(){
-    words = pickWords();
+    words = [];
     results = [];
     showScreen("game");
     startRound(0);
